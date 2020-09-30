@@ -8,7 +8,22 @@ zero or more reference tokens, each prefixed by a `/` (`%x2F`) character.
 
 Source: [RFC6901](https://tools.ietf.org/html/rfc6901)
 
-### ABNF Representation
+## Usage
+
+The example below return the first element of the array `foo` contained
+within the (unmarshalled) JSON document.
+
+```go
+var jsonDocument map[string]interface{}
+_ = json.Unmarshal([]byte(JSON), &jsonDocument)
+
+jsonPtr, _ := ptr.New("/foo/0")
+value, err := jsonPtr.Get(jsonDocument)
+```
+
+---
+
+#### ABNF Representation
 ```abnf
 json-pointer    = *( "/" reference-token )
 reference-token = *( unescaped / escaped )
